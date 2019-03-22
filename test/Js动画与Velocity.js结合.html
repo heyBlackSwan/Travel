@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <transition
+            @before-enter="handleBeforeEnter"
+        >
+            <div v-if="isShow">Hello World!!!</div>
+        </transition>
+        <button @click="handleClick">toggle</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                isShow: true
+            },
+            methods: {
+                handleClick () {
+                    this.isShow = !this.isShow;
+                },
+                handleBeforeEnter () {
+                    console.log('beforeEnter')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
