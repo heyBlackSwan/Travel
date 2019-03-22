@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>父子组件数据传递</title>
+</head>
+<body>
+    <div id="root">
+        <count :count="1" :step="2" @change="computedNum"></count>
+        <count :count="2" :step="2" @change="computedNum"></count>
+        <div>{{total}}</div>
+    </div>
+
+    <script>
+        var count = {
+            template: '<p @click="handleClick">{{number}}</p>',
+            props: ['count','step'],
+            data () {
+                return {
+                    number: this.count,
+                    step: this.step
+                }
+            },
+            methods: {
+                handleClick () {
+                    this.number+=this.step;
+                    this.$emit('change',this.step)
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                total: 3
+            },
+            components: {
+                count: count
+            },
+            methods: {
+                computedNum (step) {
+                    this.total += step;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

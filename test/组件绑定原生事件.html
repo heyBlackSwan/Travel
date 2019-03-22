@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>组件绑定原生事件</title>
+</head>
+<body>
+    <div id="root">
+        <child @change="handleChange"></child>
+
+        <child1 text="another child" @click.native="handleClick"></child1>
+    </div>
+    
+    <script>
+        Vue.component('child',{
+            template: '<p @click="changeClick">child</p>',
+            methods: {
+                changeClick () {
+                    alert('子组件点击事件');
+                    this.$emit('change')
+                }
+            }
+        });
+        Vue.component('child1',{
+            props: ['text'],
+            template: '<p>{{ text }}</p>'
+        })
+        var vm = new Vue({
+            el: '#root',
+            methods: {
+                handleChange () {
+                    alert("父组件监听的子组件点击事件");
+                },
+                handleClick () {
+                    alert("父组件利用修饰符 native 直接监听子组件原生事件")
+                }
+            }
+        })
+    </script>
+</body>
+</html>

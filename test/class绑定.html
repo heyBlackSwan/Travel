@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .isActived {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+    
+    </style>
+    <title>class绑定</title>
+</head>
+<body>
+    <div id="app">
+        <p :class='{isActived: isActived}' @click="handleClick">对象绑定class</p>
+        <p :class="[isGreen]" @click="handleGreen">数组绑定class</p>
+        <p :style='styleObj' @click="handleStyle">style绑定</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isActived: false,
+                isGreen: '',
+                styleObj: {
+                    color: 'purple',
+                    fontSize: '24px',
+                    fontWeight: 'bold'
+                },
+                styleObjOne: {
+                    color: 'pink',
+                    fontSize: '30px',
+                    fontWeight: 'bolder'
+                }
+            },
+            methods: {
+                handleClick: function () {
+                    this.isActived = !this.isActived;
+                },
+                handleGreen: function () {
+                    this.isGreen = this.isGreen === 'green' ? '' : 'green'
+                },
+                handleStyle: function () {
+                    this.styleObj = this.styleObjOne
+                }
+            }
+        })
+    </script>
+</body>
+</html>

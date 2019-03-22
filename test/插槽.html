@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>插槽(slot) 和 具名插槽</title>
+</head>
+<body>
+    <div id="root">
+        <child>
+            <div>我是普通插槽内容</div>
+        </child>
+        <another-child>
+            <div class="header" slot='header'>header</div>
+            <div class="footer" slot='footer'>footer</div>
+        </another-child>
+    </div>
+    <script>
+        Vue.component('child',{
+            template: `<p>
+                Hello
+                <slot></slot>
+                </p>`
+        });
+        Vue.component('anotherChild',{
+            template:`<p>
+                <slot name='header'></slot>
+                <span>这是我子组件的内容</span>
+                <slot name='footer'></slot>
+                </p>`
+        })
+        var vm = new Vue({
+            el: '#root',
+
+        })
+    </script>
+</body>
+</html>
