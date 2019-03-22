@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./css/animate.css">
+    <title>CSS动画原理&Animate.css库</title>
+    <style>
+        p {
+            color: red;
+            font-weight: bold;
+        }
+        .fade-enter,.fade-leave-to {
+            opacity: 0;
+        }
+        .fade-enter-active,.fade-leave-active {
+            transition: opacity 3s;
+        }
+        .fade-leave {
+            opacity: 1;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0)
+            }
+            50% {
+                transform: scale(1.5)
+            }
+            100% {
+                transform: scale(1)
+            }
+        }
+        .v-enter-active {
+            transform-origin: left center;
+            animation: bounce-in 3s;
+        }
+        .v-leave-active {
+            transform-origin: left center;
+            animation: bounce-in 3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <p>1、transition 中name定义的什么，class名就以什么开头，不定义name，就用v-</p>
+        <p>2、可以自定义class名，enter-active-class="enter"  和  leave-active-class="leave"</p>
+        <p>使用animate库，必须使用自定义class名</p>
+        <hr>
+        <transition name="fade">
+            <child v-if='isShow'></child>
+        </transition>
+        <hr>
+        <button @click="handleClick">change</button>
+        <hr>
+        <transition>
+            <div v-show="isShow">自定义 keyframe 动画</div>
+        </transition>
+        <hr>
+        <transition 
+        enter-active-class="animated rotateInDownLeft"
+        leave-active-class="animated rotateOutDownLeft"
+        >
+            <div v-show="isShow">使用Animate.css库</div>
+        </transition>
+        <hr>
+        <transition 
+        type="transition"
+        appear
+        :duration= "{enter: 5000,leave: 10000}"
+        enter-active-class="animated rotateInDownLeft fade-enter-active"
+        leave-active-class="animated rotateOutDownLeft fade-leave-active"
+        appear-active-class="animated rotateInDownLeft"
+        >
+            <div v-show="isShow">过度和动画混合使用,可以自定义动画时间以过度还是动画为准，自定义持续时间,appear 设置元素原始出场动画</div>
+        </transition>
+    </div>
+    <script>
+        Vue.component('child',{
+            template: `
+                <p>Hello World!!!</p>
+            `
+        })
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                isShow: true
+            },
+            methods: {
+                handleClick () {
+                    this.isShow = !this.isShow;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
