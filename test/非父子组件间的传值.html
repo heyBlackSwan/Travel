@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>非父子组件间传值(Bus/总线/发布订阅模式/观察者模式 )</title>
+</head>
+<body>
+    <div id="root">
+        <child content="this is a child component One"></child>
+        <child content="this is another child component Two"></child>
+    </div>
+    <script>
+        Vue.prototype.bus = new Vue();
+        Vue.component('child',{
+            props: {
+                content: {
+                    type: String,
+                }
+            },
+            data () {
+                return {
+                    selfCount: this.content
+                }
+            },
+            template: '<p @click="childClick">{{selfCount}}</p>',
+            methods: {
+                childClick () {
+                    this.bus.$emit('change',this.selfCount)
+                }
+            },
+            mounted() {
+                var _this = this;
+                _this.bus.$on('change',function (msg) {
+                    _this.selfCount = msg
+                })
+            }, 
+        })
+        var vm = new Vue({
+            el: '#root',
+            
+        })
+    </script>
+</body>
+</html>
