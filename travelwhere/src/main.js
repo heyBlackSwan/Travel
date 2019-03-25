@@ -3,11 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import './assets/styles/reset.css'
+import 'styles/reset.css'
 // 高倍屏一像素边框问题解决方案
-import './assets/styles/border.css'
+import 'styles/border.css'
+import 'styles/iconfont.css'
 // 移动端的点击300毫秒延迟解决方案:安装 fastclick 到依赖中(npm install fastclick --save)
 import fastClick from 'fastclick'
+// 解决移动端适配问题，转换rem，1rem等于设计稿宽度/10 px  (本项目采用html字体大小625%来计算，因为没有设计稿)
+import './changeRem'
 
 Vue.config.productionTip = false
 fastClick.attach(document.body)
