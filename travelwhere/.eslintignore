@@ -2,3 +2,5 @@
 /config/
 /dist/
 /*.js
+
+# 这些文件不受eslint代码检测标准影响
