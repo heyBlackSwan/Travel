@@ -14,3 +14,5 @@ yarn-error.log*
 *.sln
 
 # 并不会被提交到线上仓库的文件
+
+static/mock
